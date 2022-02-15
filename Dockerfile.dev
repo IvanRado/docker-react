@@ -1,0 +1,19 @@
+# Use base image
+FROM node:16-alpine
+
+USER node
+
+RUN mkdir -p /home/node/app
+
+# The working directory in the container
+WORKDIR '/home/node/app'
+
+# Copy files
+COPY --chown=node:node ./package.json ./
+
+# Install dependencies
+RUN npm install
+
+COPY --chown=node:node ./ ./
+
+CMD ["npm", "run", "start"]
